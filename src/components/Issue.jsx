@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export const Issue = ({ id, title, number, createdAt, writer, comments }) => {
+export const Issue = ({ title, number, createdAt, writer, comments }) => {
   return (
-    <div className="issue">
+    <Link to={`/detail/${number}`} className="issue">
       <div className="issue__info">
         <p className="issue__info-title">{title}</p>
         <p className="issue__info-sub">
@@ -17,6 +18,6 @@ export const Issue = ({ id, title, number, createdAt, writer, comments }) => {
         </svg>
         <span>{comments}</span>
       </div>
-    </div>
+    </Link>
   );
 };

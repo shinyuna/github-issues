@@ -48,7 +48,6 @@ export const Issues = () => {
           ) : (
             <Issue
               key={issue.id}
-              id={issue.id}
               title={issue.title}
               number={issue.number}
               createdAt={issue.createdAt}
