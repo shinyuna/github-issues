@@ -6,8 +6,8 @@ import { useFetch } from '../hooks/useFetch';
 export const Issues = () => {
   const [pageNum, setPageNum] = useState(1);
   const { error, list } = useFetch(pageNum);
-  const ref = useRef(null);
 
+  const ref = useRef(null);
   const observer = useMemo(
     () =>
       new IntersectionObserver(entries => {
@@ -35,7 +35,7 @@ export const Issues = () => {
     };
   }, [observer, list, error]);
 
-  if (!list && list.length === 0)
+  if (list.length === 0)
     return (
       <div className="loading">
         <p>Loading...</p>
@@ -43,25 +43,22 @@ export const Issues = () => {
     );
   return (
     <div className="container issues">
-      {list.length !== 0 &&
-        list.map((issue, index) => (
-          <div key={index}>
-            {index === 4 && (
-              <div className="ad">
-                <a href="https://thingsflow.com/ko/home">
-                  <img src="https://placehold.it/500x100?text=ad" alt="AD" />
-                </a>
-              </div>
-            )}
-            <Issue
-              title={issue.title}
-              number={issue.number}
-              createdAt={issue.createdAt}
-              writer={issue.writer.login}
-              comments={issue.comments}
-            />
-          </div>
-        ))}
+      {list.map((issue, index) => (
+        <div key={index}>
+          {index === 4 && (
+            <a className="ad" href="https://thingsflow.com/ko/home">
+              <img src="https://placehold.it/500x100?text=ad" alt="AD" />
+            </a>
+          )}
+          <Issue
+            title={issue.title}
+            number={issue.number}
+            createdAt={issue.createdAt}
+            writer={issue.writer.login}
+            comments={issue.comments}
+          />
+        </div>
+      ))}
       <div ref={ref} style={{ width: '100%', height: '20px' }} />
     </div>
   );
