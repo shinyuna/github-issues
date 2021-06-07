@@ -4,7 +4,7 @@ export const Header = ({ team, repo }) => {
   return (
     <header>
       <h1 className="header__title">
-        {team}/{repo}
+        ✅ {team}/{repo} 💬
       </h1>
     </header>
   );
