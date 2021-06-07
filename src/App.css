@@ -3,6 +3,9 @@
   margin: 0;
   box-sizing: border-box;
 }
+:root {
+  --color-gray-font: #8b949e;
+}
 
 header {
   padding: 1.5rem 1rem;
@@ -15,6 +18,21 @@ header {
 
 .container {
   padding: 0 2rem;
+}
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
+}
+.loading > p {
+  text-align: center;
+  font-size: 2rem;
+  color: #3fb950;
+  background-color: hsl(128deg 49% 49% / 10%);
+  border: 1px solid #3fb95066;
+  border-radius: 30px;
+  padding: 10px 40px;
 }
 
 .ad img {
@@ -47,7 +65,7 @@ header {
   margin-bottom: 10px;
 }
 .issue__info-sub {
-  color: #8b949e;
+  color: var(--color-gray-font);
 }
 .issue__comment {
   align-self: center;
@@ -55,4 +73,61 @@ header {
 .issue__comment svg {
   vertical-align: middle;
   margin-right: 5px;
+}
+
+/* issue detail */
+
+.detail__header {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 2rem;
+}
+.detail__title {
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.detail__title > span {
+  color: var(--color-gray-font);
+}
+.detail__info > .label {
+  border: 1px solid #3fb95066;
+  color: #3fb950;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 8px 15px;
+  border-radius: 30px;
+  background-color: hsl(128deg 49% 49% / 10%);
+}
+.detail__info > .info {
+  color: var(--color-gray-font);
+  margin-left: 10px;
+}
+
+.detail__content {
+  padding: 20px;
+}
+.detial__user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.detial__user .profile {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 100%;
+  overflow: hidden;
+  background-color: #ddd;
+}
+.detial__user .profile > img {
+  width: 100%;
+  object-fit: cover;
+}
+.detail__content .content {
+  padding: 1rem;
+  background-color: #161b22;
+  color: #fff;
+  border-radius: 1rem;
+  margin-top: 1rem;
+}
+.markdown {
+  padding: 10px;
 }

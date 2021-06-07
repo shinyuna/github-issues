@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo, useRef } from 'react';
+
 import { API } from '../api';
 import { Issue } from '../components/Issue';
 
@@ -35,6 +36,12 @@ export const Issues = () => {
     fetchIssues();
   }, []);
 
+  if (!issues)
+    return (
+      <div className="loading">
+        <p>Loading...</p>
+      </div>
+    );
   return (
     <div className="container issues">
       {issues.length !== 0 &&
