@@ -5,10 +5,46 @@
 }
 
 header {
-  padding: 1rem;
+  padding: 1.5rem 1rem;
 }
 .header__title {
   text-align: center;
   font-weight: 600;
   letter-spacing: 1.5px;
+}
+
+.container {
+  padding: 0 2rem;
+}
+
+.issues {
+  display: grid;
+  gap: 1rem;
+}
+.issue {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.issue__info {
+  flex: 1;
+}
+.issue__info-title {
+  width: 80%;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.issue__info-sub {
+  color: #8b949e;
+}
+.issue__comment {
+  align-self: center;
+}
+.issue__comment svg {
+  vertical-align: middle;
+  margin-right: 5px;
 }
