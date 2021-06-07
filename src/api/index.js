@@ -15,4 +15,7 @@ API.getRepoIssues = (owner, repo, params) =>
     },
   });
 
+API.getRepoIssue = (owner, repo, issue_number, params) =>
+  client.get(`/repos/${owner}/${repo}/issues/${issue_number}`, { params: params });
+
 export { API };
