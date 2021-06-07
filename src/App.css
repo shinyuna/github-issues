@@ -1,0 +1,14 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+header {
+  padding: 1rem;
+}
+.header__title {
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
