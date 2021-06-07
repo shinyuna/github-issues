@@ -1,42 +1,41 @@
-import React, { useEffect, useState, useMemo, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 
-import { API } from '../api';
 import { Issue } from '../components/Issue';
+import { useFetch } from '../hooks/useFetch';
 
 export const Issues = () => {
-  const [issues, setIssues] = useState([]);
-  const [count, setCount] = useState(0);
+  const [pageNum, setPageNum] = useState(1);
+  const { error, list } = useFetch(pageNum);
   const ref = useRef(null);
 
+  const observer = useMemo(
+    () =>
+      new IntersectionObserver(entries => {
+        entries.forEach(async entry => {
+          if (entry.isIntersecting) {
+            await setPageNum(prev => prev + 1);
+            console.log('GOGOGO');
+          }
+        });
+      }),
+    []
+  );
+
   useEffect(() => {
-    const fetchIssues = async () => {
-      try {
-        const { data } = await API.getRepoIssues('angular', 'angular-cli', {
-          sort: 'comments',
-          page: 1,
-          per_page: 10,
-        });
-        const response = data.map(issue => {
-          return {
-            id: issue.id,
-            number: issue.number,
-            title: issue.title,
-            writer: issue.user,
-            comments: issue.comments,
-            link: issue.url,
-            createdAt: issue.created_at,
-          };
-        });
-        setIssues(response);
-      } catch (error) {
-        console.error(error);
+    // 옵저버 적용
+    if (error) return;
+    if (!list) return;
+    if (!ref.current) return;
+    const el = ref.current;
+    observer.observe(el);
+    return () => {
+      if (el) {
+        observer.unobserve(el);
       }
     };
+  }, [observer, list, error]);
 
-    fetchIssues();
-  }, []);
-
-  if (!issues)
+  if (!list && list.length === 0)
     return (
       <div className="loading">
         <p>Loading...</p>
@@ -44,26 +43,26 @@ export const Issues = () => {
     );
   return (
     <div className="container issues">
-      {issues.length !== 0 &&
-        issues.map((issue, index) =>
-          index === 4 ? (
-            <div className="ad" key={index}>
-              <a href="https://thingsflow.com/ko/home">
-                <img src="https://placehold.it/500x100?text=ad" alt="AD" />
-              </a>
-            </div>
-          ) : (
+      {list.length !== 0 &&
+        list.map((issue, index) => (
+          <div key={index}>
+            {index === 4 && (
+              <div className="ad">
+                <a href="https://thingsflow.com/ko/home">
+                  <img src="https://placehold.it/500x100?text=ad" alt="AD" />
+                </a>
+              </div>
+            )}
             <Issue
-              key={issue.id}
               title={issue.title}
               number={issue.number}
               createdAt={issue.createdAt}
               writer={issue.writer.login}
               comments={issue.comments}
             />
-          )
-        )}
-      <div ref={ref}></div>
+          </div>
+        ))}
+      <div ref={ref} style={{ width: '100%', height: '20px' }} />
     </div>
   );
 };
