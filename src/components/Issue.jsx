@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Issue = ({ id, title, number, createdAt, writer, comments }) => {
   return (
-    <div className="issue" key={id}>
+    <div className="issue">
       <div className="issue__info">
         <p className="issue__info-title">{title}</p>
         <p className="issue__info-sub">
