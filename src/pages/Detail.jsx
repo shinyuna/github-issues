@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
+import { API } from '../api';
 
 export const Detail = () => {
-  const params = useParams();
-  console.log('🚀 ~ Detail ~ params', params);
+  const { issue_number } = useParams();
+  useEffect(() => {
+    const fetchIssue = async () => {
+      try {
+        const { data } = await API.getRepoIssue('angular', 'angular-cli', issue_number);
+        console.log('🚀 ~ fetchIssue ~ data', data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  return <div>Detail</div>;
+    fetchIssue();
+  }, []);
+
+  return <div className="container">Detail</div>;
 };

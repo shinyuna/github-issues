@@ -34,6 +34,8 @@ header {
   border: 1px solid #ddd;
   border-radius: 0.5rem;
   cursor: pointer;
+  text-decoration: none;
+  color: #333;
 }
 .issue__info {
   flex: 1;
