@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-console.log(process.env);
-
 const client = axios.create({
   baseURL: 'https://api.github.com/',
 });

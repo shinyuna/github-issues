@@ -14,13 +14,11 @@ export const Issues = () => {
         entries.forEach(async entry => {
           if (entry.isIntersecting) {
             await setPageNum(prev => prev + 1);
-            console.log('GOGOGO');
           }
         });
       }),
     []
   );
-
   useEffect(() => {
     // 옵저버 적용
     if (error) return;
