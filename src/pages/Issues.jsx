@@ -4,8 +4,8 @@ import { Issue } from '../components/Issue';
 import { useFetch } from '../hooks/useFetch';
 
 export const Issues = () => {
-  const [pageNum, setPageNum] = useState(1);
-  const { error, list } = useFetch(pageNum);
+  const [pageNum, setPageNum] = useState(() => sessionStorage.getItem('issues_hint') | 1);
+  const { error, list } = useFetch(pageNum, 'issues_hint');
 
   const ref = useRef(null);
   const observer = useMemo(
@@ -13,7 +13,7 @@ export const Issues = () => {
       new IntersectionObserver(entries => {
         entries.forEach(async entry => {
           if (entry.isIntersecting) {
-            await setPageNum(prev => prev + 1);
+            await setPageNum(prev => +prev + 1);
           }
         });
       }),
