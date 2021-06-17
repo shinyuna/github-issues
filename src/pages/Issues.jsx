@@ -2,12 +2,24 @@ import React, { useEffect, useState, useRef, useMemo } from 'react';
 
 import { Issue } from '../components/Issue';
 import { useFetch } from '../hooks/useFetch';
+import { ImageChecker } from '../utils/imageChecker';
 
 export const Issues = () => {
   const [pageNum, setPageNum] = useState(() => sessionStorage.getItem('issues_hint') | 1);
+  const [banner, setBanner] = useState('');
   const { error, list } = useFetch(pageNum, 'issues_hint');
-
   const ref = useRef(null);
+
+  useEffect(() => {
+    ImageChecker('https://placehold.it/500x100?text=ad')
+      .then(res => {
+        setBanner(res);
+      })
+      .catch(err => {
+        setBanner(err);
+      });
+  }, []);
+
   const observer = useMemo(
     () =>
       new IntersectionObserver(entries => {
@@ -45,7 +57,7 @@ export const Issues = () => {
         <div key={index}>
           {index === 4 && (
             <a className="ad" href="https://thingsflow.com/ko/home">
-              <img src="https://placehold.it/500x100?text=ad" alt="AD" />
+              <img src={banner} alt="AD" />
             </a>
           )}
           <Issue
