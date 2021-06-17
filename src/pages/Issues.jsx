@@ -2,21 +2,27 @@ import React, { useEffect, useState, useRef, useMemo } from 'react';
 
 import { Issue } from '../components/Issue';
 import { useFetch } from '../hooks/useFetch';
+import { useScrollMove } from '../hooks/useScrollMove';
 import { ImageChecker } from '../utils/imageChecker';
 
 export const Issues = () => {
   const [pageNum, setPageNum] = useState(() => sessionStorage.getItem('issues_hint') | 1);
   const [banner, setBanner] = useState('');
+
   const { error, list } = useFetch(pageNum, 'issues_hint');
+  const { scrollMove } = useScrollMove();
+
   const ref = useRef(null);
 
   useEffect(() => {
     ImageChecker('https://placehold.it/500x100?text=ad')
       .then(res => {
         setBanner(res);
+        scrollMove();
       })
       .catch(err => {
         setBanner(err);
+        scrollMove();
       });
   }, []);
 

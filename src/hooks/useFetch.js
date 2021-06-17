@@ -31,8 +31,7 @@ export const useFetch = (page, itemName) => {
       try {
         let tempList = [];
         const arr = Array.from({ length: page });
-        for (let i = 1; i <= arr.length; i++) {
-          console.log(i);
+        for (let i = 1; i < arr.length; i++) {
           const { data } = await API.getRepoIssues('angular', 'angular-cli', {
             sort: 'comments',
             page: i,
@@ -49,7 +48,7 @@ export const useFetch = (page, itemName) => {
         setError(err);
       }
     },
-    [formatData, scrollOnceMove, itemName]
+    [page]
   );
 
   const sendQuery = useCallback(async () => {
@@ -76,7 +75,7 @@ export const useFetch = (page, itemName) => {
     } catch (err) {
       setError(err);
     }
-  }, [first, page, itemName, formatData]);
+  }, [page]);
 
   const savePage = () => {
     return sessionStorage.setItem(itemName, page);
@@ -84,8 +83,10 @@ export const useFetch = (page, itemName) => {
 
   useEffect(() => {
     if (first && page > 1) {
+      console.log('Call');
       callAPI(page);
     } else {
+      console.log('send');
       sendQuery();
     }
   }, [page]);

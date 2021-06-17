@@ -9,9 +9,9 @@ export const useScrollMove = () => {
     if (!scrollInfos && scrollInfos !== 0) {
       return;
     }
-    sessionStorage.removeItem('scroll_pos');
     setScrollInfos(sessionStorage.getItem('scroll_pos'));
-    window.scrollTo(0, scrollInfos);
+    window.scrollTo({ top: scrollInfos });
+    sessionStorage.removeItem('scroll_pos');
   };
 
   const scrollOnceMove = useCallback(scrollMove, [scrollInfos]);
