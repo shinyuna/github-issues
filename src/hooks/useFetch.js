@@ -83,10 +83,8 @@ export const useFetch = (page, itemName) => {
 
   useEffect(() => {
     if (first && page > 1) {
-      console.log('Call');
       callAPI(page);
     } else {
-      console.log('send');
       sendQuery();
     }
   }, [page]);
